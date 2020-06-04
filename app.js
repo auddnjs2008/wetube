@@ -12,6 +12,7 @@ import routes from "./routes";
 import userRouter from "./routers/userRouter"; // default로 export 한게 아니니 이런식으로
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
+import apiRouter from "./routers/apiRouter";
 import "./passport";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(localsMiddleware); // local 변수에 접근하기위해
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 // app.use("/user", userRouter);
 // /user 경로로 접속하면 userRouter를 사용하겠다.
