@@ -7,6 +7,7 @@ import {
   deleteVideo,
   getEditVideo,
   postEditVideo,
+  postDeleteComment,
 } from "../controllers/videoController";
 import { uploadVideo, onlyPrivate } from "../middlewares";
 const videoRouter = express.Router();
@@ -24,4 +25,5 @@ videoRouter.post(routes.editVideo(), onlyPrivate, postEditVideo);
 
 //Delete Video
 videoRouter.get(routes.deleteVideo(), onlyPrivate, deleteVideo);
+
 export default videoRouter; // 이 파일 전체를 export

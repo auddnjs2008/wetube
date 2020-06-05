@@ -1,7 +1,7 @@
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
-
+import logedUser from "../middlewares";
 // async는 자바스크립트야 이함수의 어떤 부분은 꼭 기다려야 해 라고 이야기하는 것이다.
 export const home = async (req, res) => {
   try {
@@ -144,6 +144,25 @@ export const postAddComment = async (req, res) => {
     });
     video.comments.push(newComment.id);
     video.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postDeleteComment = async (req, res) => {
+  const {
+    params: { id },
+    user,
+  } = req;
+  try {
+    const comment = await Comment.findById(id);
+    if (String(comment.creator) !== user.id) {
+      throw Error();
+    } else {
+      await Comment.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     res.status(400);
   } finally {
